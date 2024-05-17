@@ -1,10 +1,16 @@
 import * as Yup from "yup";
 
 export const addProductSchema = Yup.object().shape({
-    name: Yup.string().required("Product name is required."),
+    name: Yup.object().shape({
+        en: Yup.string().required("Product name is required."),
+        ar: Yup.string().required("Product name is required.")
+    }),
     slug: Yup.string().required("Product slug is required."),
     categories: Yup.array().of(Yup.mixed().required("Category is required.")).max(3),
-    description: Yup.string().required("Description is required.").nullable(),
+    description: Yup.object().shape({
+        en: Yup.string().required("Description is required.").nullable(),
+        ar: Yup.string().required("Description is required.").nullable()
+    }),
     cover_image: Yup.mixed().required("Cover Image is essential."),
     newTag: Yup.string().trim(),
     tags: Yup.array().of(Yup.string().required('Tag is required')),

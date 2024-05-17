@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image';
 import Link from "next/link";
 import CardAdmin from '@/components/cards/cardadmin';
-import { RefreshIcon } from '@/public/icons/RefreshIcon';
 import axios from "axios";
 import toaster from '@/utils/toast_function';
 
@@ -60,7 +59,7 @@ export default function NewCustomersAndTopProducts() {
                             <Image className='w-full h-full object-cover' width={150} height={150} src={process.env.NEXT_PUBLIC_BASE_IMG_URL + product.cover_image} alt='Product image' />
                         </div>
                         <div className='flex flex-col text-sm'>
-                            <p className='truncate'>{product.name}</p>
+                            <p className='truncate'>{product.name.en}</p>
                             <span className='text-xs'>{product.price} AED</span>
                         </div>
                     </div>

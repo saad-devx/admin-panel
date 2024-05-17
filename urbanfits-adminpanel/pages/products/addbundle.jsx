@@ -47,12 +47,11 @@ const BundleItem = (props) => {
                     <div className="w-1/4 aspect-square overflow-hidden">
                         <Image width={560} height={590} src={process.env.NEXT_PUBLIC_BASE_IMG_URL + foundProduct.cover_image} alt="product image" className="w-full h-full rounded-lg md:rounded-xl object-cover object-top" />
                     </div>
-                    <h3 className="font_futura my-2 text-lg">{foundProduct.name}</h3>
+                    <h3 className="font_futura my-2 text-lg">{foundProduct.name.en}</h3>
                 </> : null}
         </div>
     </section>
 }
-
 
 export default function CreateBundles() {
     const { selectedProducts, getOneProduct, productLoading } = useProduct();

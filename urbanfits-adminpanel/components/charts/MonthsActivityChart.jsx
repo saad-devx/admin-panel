@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import CardAdmin from '../cards/cardadmin';
 import { Line } from 'react-chartjs-2';
+import toaster from '@/utils/toast_function';
 import axios from "axios";
 import {
     Chart as ChartJS,

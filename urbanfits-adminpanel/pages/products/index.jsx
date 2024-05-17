@@ -193,7 +193,7 @@ export default function AllProducts() {
                         status: "Active",
                         date: product.createdAt,
                         updatedAt: product.updatedAt,
-                        handleInfo: () => { setProductInfo(product) },
+                        handleInfo: () => { console.log(product); setProductInfo(product) },
                         infoLink: "/products/productinfo",
                         actions: [
                             {

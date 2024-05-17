@@ -184,10 +184,11 @@ const VariantItem = (props) => {
 }
 
 export default function ProductInfoPage(props) {
-    const { categories, getCategories, categLoading } = useCategories()
-    const { createProduct, updateProduct, productLoading } = useProduct()
-    const [loader, setLoader] = useState(null)
-    const coverImage = useRef(null)
+    const { categories, getCategories, categLoading } = useCategories();
+    const { createProduct, updateProduct, productLoading } = useProduct();
+    const [loader, setLoader] = useState(null);
+    const coverImage = useRef(null);
+    console.log("The product info on the page: ", props.product)
 
     const CreateProduct = async (product) => {
         setLoader(<Loader status="Creating Product Instance" />)
@@ -239,10 +240,10 @@ export default function ProductInfoPage(props) {
     const { values, errors, handleBlur, handleChange, handleSubmit, handleReset, touched, setFieldValue, setValues } = useFormik({
         validationSchema: addProductSchema,
         initialValues: {
-            name: '',
+            name: { en: props?.product?.name?.en || '', ar: props?.product?.name?.ar || '' },
             slug: '',
             categories: [''],
-            description: '',
+            description: { en: "", ar: "" },
             cover_image: '',
             newTag: '',
             tags: [],
@@ -324,15 +325,23 @@ export default function ProductInfoPage(props) {
                 <section className="w-full mb-7 flex justify-between gap-x-4">
                     <InputText
                         classes="w-1/2"
-                        label="Product Name"
+                        label="Product Name (English)"
                         placeholder="&nbsp;"
-                        name="name"
-                        value={values.name}
+                        name="name.en"
+                        value={values.name.en}
                         onChange={(e) => { handleChange(e); setFieldValue('slug', getSlug(e)); setFieldValue('seo_details.title', e.target.value) }}
                         onBlur={handleBlur}
-                        error={errors.name && touched.name ?
-                            (errors.productname) : null
-                        }
+                        error={touched?.name?.en ? errors?.product?.name?.en : null}
+                    />
+                    <InputText
+                        classes="w-1/2"
+                        label="Product Name (Arabic)"
+                        placeholder="&nbsp;"
+                        name="name.ar"
+                        value={values.name.ar}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={touched?.name?.ar ? errors?.product?.name?.ar : null}
                     />
                     <InputText
                         classes="w-1/2"
@@ -342,9 +351,7 @@ export default function ProductInfoPage(props) {
                         value={values.slug}
                         onChange={(e) => { setFieldValue('slug', getSlug(e)) }}
                         onBlur={handleBlur}
-                        error={errors.slug && touched.slug ?
-                            (errors.slug) : null
-                        }
+                        error={errors.slug && touched.slug ? errors.slug : null}
                     />
                 </section>
                 <section className="w-full mb-7 flex justify-between gap-x-6">
@@ -352,7 +359,6 @@ export default function ProductInfoPage(props) {
                         e.preventDefault();
                         const selectedFiles = e.dataTransfer.files;
                         const imagesArray = Array.from(selectedFiles);
-                        console.log("here is what you are looking for: ", typeof imagesArray[0])
                         setFieldValue("cover_image", imagesArray[0]);
                         coverImage.current.style.transform = "scale(1)"
                         coverImage.current.style.boxShadow = "none"
@@ -378,9 +384,14 @@ export default function ProductInfoPage(props) {
                     </div>
                     <nav className="relative w-1/2 h-full flex flex-col justify-between">
                         <div className="relative w-full mb-5 data_field items-center">
-                            <h2 className="mb-2 font_futura text-sm text-left">Description</h2>
-                            {errors && errors.description ? <p className='absolute text-red-400 bottom-[-19px] left-[10px] text-[11px]' >{errors.description} </p> : null}
-                            <textarea rows={5} className="w-full p-2 bg-transparent outline-none border rounded-md border-gray-300 focus:border-yellow-700 hover:border-yellow-600 transition" type="text" value={values.description} name="description" id="description" maxLength={1000} onBlur={handleBlur} onChange={(e) => { handleChange(e); setFieldValue('seo_details.description', e.target.value) }} placeholder="This product is very good, please buy it" />
+                            <h2 className="mb-2 font_futura text-sm text-left">Description (English)</h2>
+                            {errors?.description?.en ? <p className='absolute text-red-400 bottom-[-19px] left-[10px] text-[11px]' >{errors?.description?.en} </p> : null}
+                            <textarea rows={3} className="w-full p-2 bg-transparent outline-none border rounded-md border-gray-300 focus:border-yellow-700 hover:border-yellow-600 transition" type="text" value={values.description.en} name="description.en" id="description.en" maxLength={1000} onBlur={handleBlur} onChange={(e) => { handleChange(e); setFieldValue('seo_details.description', e.target.value) }} placeholder="This product is very good, please buy it" />
+                        </div>
+                        <div className="relative w-full mb-5 data_field items-center">
+                            <h2 className="mb-2 font_futura text-sm text-left">Description (Arabic)</h2>
+                            {errors?.description?.ar ? <p className='absolute text-red-400 bottom-[-19px] left-[10px] text-[11px]' >{errors?.description?.ar} </p> : null}
+                            <textarea rows={3} className="w-full p-2 bg-transparent outline-none border rounded-md border-gray-300 focus:border-yellow-700 hover:border-yellow-600 transition" type="text" value={values.description.ar} name="description.ar" id="description.ar" maxLength={1000} onBlur={handleBlur} onChange={handleChange} placeholder="هذا المنتج جيد جدًا، يرجى شراؤه" />
                         </div>
                         <div className="w-full relative flex flex-col" >
                             <label className='font_futura text-sm flex items-center'>

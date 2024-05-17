@@ -111,24 +111,29 @@ export default function ProductCategories() {
         </div>
 
         <section className='w-full mt-5 min-h-[30vh] bg-white rounded-2xl card_boxshadow'>
-            {/* {!categories || categLoading ? <div className='w-full h-[30vh] flex justify-center items-center' >
-                    <Spinner forBtn={true} variant="border-black" />
-                </div>
-                    : */}
             <div className='w-full p-8 flex gap-12'>
-                <form onSubmit={handleSubmit} onReset={(e) => { handleReset(e); setFieldValue('parent', null) }} className='w-1/5 flex flex-col gap-8'>
+                <form onSubmit={handleSubmit} onReset={(e) => { handleReset(e); setFieldValue('parent', null) }} className='w-1/4 flex flex-col gap-8'>
                     {values.id ? <div className='flex flex-col' >
                         <label htmlFor='id' className='mb-2 font_futura text-sm flex items-center' >ID</label>
                         <span name="id" id='id' className='text-sm whitespace-nowrap'>{values.id}</span>
                     </div> : null}
                     <InputText
-                        label="Name"
+                        label="Name (English)"
                         placeholder="Category name"
-                        name="name"
-                        value={values.name}
+                        name="name.en"
+                        value={values?.name?.en}
                         onChange={(e) => { handleChange(e); setFieldValue('slug', getSlug(e)) }}
                         onBlur={handleBlur}
-                        error={errors.name && touched.name ? (errors.name) : null}
+                        error={errors?.name?.en && touched?.name?.en ? (errors.name.en) : null}
+                    />
+                    <InputText
+                        label="Name (Arabic)"
+                        placeholder="Category name"
+                        name="name.ar"
+                        value={values?.name?.ar}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={errors?.name?.ar && touched?.name?.ar ? (errors.name.ar) : null}
                     />
                     <InputText
                         label="Slug"
@@ -151,16 +156,21 @@ export default function ProductCategories() {
                         })}
                     </InputSelect>
                     <div className="relative w-full data_field items-center">
-                        <h2 className="mb-2 font_futura text-sm text-left">Description</h2>
-                        {touched.description && errors.description ? <Tooltip classes="form-error" content={errors.description} /> : null}
-                        <textarea rows={5} className="w-full p-2 bg-transparent outline-none border rounded-md border-gray-300 focus:border-yellow-700 hover:border-yellow-600 transition" type="text" value={values.description} name="description" id="description" maxLength={1000} onBlur={handleBlur} onChange={handleChange} placeholder="" />
+                        <h2 className="mb-2 font_futura text-sm text-left">Description (English)</h2>
+                        {touched?.description?.en && errors?.description?.en ? <Tooltip classes="form-error" content={errors.description.en} /> : null}
+                        <textarea rows={3} className="w-full p-2 bg-transparent outline-none border rounded-md border-gray-300 focus:border-yellow-700 hover:border-yellow-600 transition" type="text" value={values?.description?.en} name="description.en" id="description.en" maxLength={1000} onBlur={handleBlur} onChange={handleChange} placeholder="Wow this category is superb." />
+                    </div>
+                    <div className="relative w-full data_field items-center">
+                        <h2 className="mb-2 font_futura text-sm text-left">Description (Arabic)</h2>
+                        {touched?.description?.ar && errors?.description?.ar ? <Tooltip classes="form-error" content={errors.description.ar} /> : null}
+                        <textarea rows={3} className="w-full p-2 bg-transparent outline-none border rounded-md border-gray-300 focus:border-yellow-700 hover:border-yellow-600 transition" type="text" value={values?.description?.ar} name="description.en" id="description.en" maxLength={1000} onBlur={handleBlur} onChange={handleChange} placeholder="" />
                     </div>
                     <div className="full flex flex-col gap-y-2">
                         <Button disabled={categLoading} type="reset" bg="bg-gray-100" text="black" classes="w-full" font='font_futura' my="my-0" >Clear</Button>
                         <Button disabled={categLoading} type="submit" classes="w-full" my="my-0" >{values.id ? "Update Category" : "Create Category"}</Button>
                     </div>
                 </form>
-                <div className='w-4/5 overflow-hidden'>
+                <div className='w-3/4 overflow-hidden'>
                     <DataTable
                         className='scrollbar_x'
                         responsive={true}

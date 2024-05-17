@@ -381,7 +381,7 @@ export const orderProductDetailTableColumns = [
     cell: (row) => <div className="w-14 h-11 my-2 rounded-lg overflow-hidden">
       {row.haveGiftCard ?
         <div style={{ width: "50px", aspectRatio: "1/1", background: "#FF4A60" }} className="flex justify-center items-center rounded-lg text-[10px] text-white">UF-Gift</div>
-        : <Image style={{ width: "50px", height: "100%" }} className='object-cover' width={80} height={80} alt={row.name} src={process.env.NEXT_PUBLIC_BASE_IMG_URL + row.image} />}
+        : <Image style={{ width: "50px", height: "100%" }} className='object-cover' width={80} height={80} alt={row.name.en} src={process.env.NEXT_PUBLIC_BASE_IMG_URL + row.image} />}
     </div>,
     width: '9%',
   },
@@ -389,7 +389,7 @@ export const orderProductDetailTableColumns = [
     selector: row => row.name,
     name: "Product",
     cell: (row) => <span className='flex flex-col text-xs text-gray-400'>
-      <p className="text-sm text-black">{row.haveGiftCard ? `UF E-Giftcard (For ${row.buy_for})` : row.name}</p>
+      <p className="text-sm text-black">{row.haveGiftCard ? `UF E-Giftcard (For ${row.buy_for})` : row.name.en}</p>
       {!row.haveGiftCard && <span> Variant: {row.variant}</span>}
     </span>,
     width: '30%',
@@ -770,17 +770,17 @@ export const productListTableColumns = [
     selector: row => row.product,
     name: "Product",
     cell: (row) => <span className='w-11 aspect-square my-2 rounded-lg overflow-hidden' >
-      <Image className='w-full h-full object-cover' width={250} height={250} alt={row.name} src={row.product} />
+      <Image className='w-full h-full object-cover' width={250} height={250} alt={row.name.en} src={row.product} />
     </span>,
     sortable: true,
     width: '9%'
   },
   {
-    selector: row => row.name,
+    selector: row => row.name.en,
     cell: row => <div className="w-full group relative flex flex-col items-start justify-center">
       <span className='w-full whitespace-nowrap truncate cursor-default'>
-        <Infotip>{row.name}</Infotip>
-        {row.name}
+        <Infotip>{row.name.en}</Infotip>
+        {row.name.en}
       </span>
       <span className="text-xs">{row.price}د.إ</span>
     </div>,
@@ -847,38 +847,32 @@ export const productCategoriesTableColumns = [
       </div>
     },
     sortable: true,
-    width: "16%"
+    width: "22%"
   },
   {
-    selector: row => row.name,
+    selector: row => row.name.en,
     name: <span className="select-none text-[15px]">Name</span>,
     sortable: true,
     width: "16%"
   },
   {
-    selector: row => row.description,
+    selector: row => row.description.en,
     name: <span className="select-none text-[15px]" >Description</span>,
     sortable: true,
-    width: "16%"
+    width: "31%"
   },
   {
     selector: row => row.slug,
     name: <span className="select-none text-[15px]" >Slug</span>,
     sortable: true,
-    width: "16%"
-  },
-  {
-    selector: row => row.order,
-    name: <span className="select-none text-[15px]" >Order</span>,
-    sortable: true,
-    width: "16%"
+    width: "18%"
   },
   {
     selector: row => row.action,
     name: <span className="select-none text-[15px]" >Action</span>,
     cell: (row) => <MenuButton options={row.actions} />,
     sortable: true,
-    width: "16%"
+    width: "8%"
   }
 ]
 
