@@ -16,10 +16,10 @@ const TaskItem = ({ task, userId, setUserTasks }) => {
     }
     return <div key={task.name} style={{ opacity: task.completed ? 0.6 : 1, pointerEvents: loading ? "none" : "auto" }} className='w-full px-4 py-2 border rounded-lg flex flex-col'>
         <div className="mb-2 flex justify-between">
-            <h3 className="text-base font-semibold">{task.title}</h3>
+            <h3 className="text-base font-semibold">{task.title.en}</h3>
             <span style={{ background: status.bg }} className="px-3 py-0.5 rounded-xl text-xs leading-normal text-white">{status.text}</span>
         </div>
-        <p className="text-sm">{task.description}</p>
+        <p className="text-sm">{task.description.en}</p>
         <div className="flex justify-between text-sm">
             <span className="font-semibold">Reward:</span>
             {task.reward || "System Generated"}
