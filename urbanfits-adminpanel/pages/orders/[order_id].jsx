@@ -56,7 +56,9 @@ export default function OrderDetails() {
                     <div className="flex items-center text-lg">
                         Status:&nbsp;
                         <div className="px-2 py-1 rounded-2xl text-xs">
-                            <select style={order ? { background: orderStatuses[order.order_status.status].bg, color: orderStatuses[order.order_status.status].text } : null} value={order?.order_status?.status} onChange={(e) => { console.log(e.target.value); changeOrderStatus(order._id, e.currentTarget.value, (orderData) => setOrder(orderData)) }} className={`w-full px-2 py-1 border border-gray-300 transition rounded-lg outline-none bg-transparent`}>
+                            <select
+                            //  style={order ? { background: orderStatuses[order?.order_status?.status].bg, color: orderStatuses[order?.order_status?.status].text } : null} value={order?.order_status?.status}
+                              onChange={(e) => { console.log(e.target.value); changeOrderStatus(order._id, e.currentTarget.value, (orderData) => setOrder(orderData)) }} className={`w-full px-2 py-1 border border-gray-300 transition rounded-lg outline-none bg-transparent`}>
                                 {Object.keys(orderStatuses).map(status => <option>{status}</option>)}
                             </select>
                         </div>
