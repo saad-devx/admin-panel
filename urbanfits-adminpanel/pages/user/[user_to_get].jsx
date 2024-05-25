@@ -17,7 +17,6 @@ import { useRouter } from "next/router";
 import useUser from "@/hooks/useUser";
 import timeAgo from "@/utils/timestamp_duration";
 import uploadImage from "@/utils/uploadImage";
-import { EncrytOrDecryptData } from "@/utils/data_handle-functions";
 import axios from "axios";
 import Link from "next/link";
 import toaster from "@/utils/toast_function";
@@ -44,8 +43,8 @@ export default function UserProfile() {
         phone_number: Yup.string().min(6, 'Phone number can be a minimum of 6 digits').max(14, 'Phone number can be a maximum of 14 digits')
     })
     const pointsSchema = Yup.object({
-        user_id: Yup.string(),
-        card_number: Yup.string(),
+        user_id: Yup.string().required(),
+        card_number: Yup.string().required(),
         source: Yup.string(),
         secret_key: Yup.string(),
         points: Yup.number(),
@@ -112,15 +111,14 @@ export default function UserProfile() {
         }
     })
 
-    const { values: ptsValues, errors: ptsErrors, touched: ptsTouched, handleChange: ptsHandleChange, setFieldValue: setPtsFieldValue, handleReset: ptsHandleReset, handleSubmit: ptsHandleSubmit } = useFormik({
+    const { values: ptsValues, errors: ptsErrors, touched: ptsTouched, handleChange: ptsHandleChange, setValues: setPtsValues, setFieldValue: setPtsFieldValue, handleReset: ptsHandleReset, handleSubmit: ptsHandleSubmit } = useFormik({
         initialValues: {
             user_id: userData?._id,
             card_number: userData?.uf_wallet?.card_number,
             source: "additional_reward",
-            secret_key: EncrytOrDecryptData(process.env.NEXT_PUBLIC_SECRET_KEY),
             points: 0,
             duducted: 0,
-            expiration_date: undefined,
+            expiration_date: '',
             notific_params: {
                 category: "reward",
                 heading: "",
@@ -130,7 +128,7 @@ export default function UserProfile() {
             }
         },
         validationSchema: pointsSchema,
-        onSubmit: async (values,) => {
+        onSubmit: async (values) => {
             await addPointsToUserWallet(values, () => getUserUfBalance(
                 userData._id,
                 userData.uf_wallet.card_number,
@@ -181,6 +179,7 @@ export default function UserProfile() {
             setUserData(user)
             setValues(user)
             setHistory(points_history)
+            setPtsValues({ ...ptsValues, user_id: user._id, card_number: user.uf_wallet.card_number })
         })()
     }, [router.isReady])
 

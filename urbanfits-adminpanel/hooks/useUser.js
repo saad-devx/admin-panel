@@ -108,8 +108,11 @@ const useUser = create((set, get) => ({
             const { data } = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/user/uf-wallet/add-points`, pointsData, { withCredentials: true })
             set(() => ({ usersLoading: false }))
             callback(data)
-            return toaster("success", data.msg)
-        } catch (e) { console.log(e) }
+            toaster("success", data.msg)
+        } catch (e) {
+            console.log(e)
+            toaster("error", e?.response?.data?.msg || "Oops! Something went wrong. Please try again.")
+        }
         set(() => ({ usersLoading: false }))
     },
 
