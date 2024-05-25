@@ -6,7 +6,6 @@ import PusherClient from "pusher-js"
 import { pusherClient } from '@/utils/pusher';
 import toaster from "@/utils/toast_function";
 import axios from 'axios';
-import jwt from 'jsonwebtoken';
 import { parse } from "cookie";
 
 const useSession = create(persist((set, get) => ({
@@ -26,7 +25,7 @@ const useSession = create(persist((set, get) => ({
         set(() => ({ adminLoading: true }));
         try {
             const { data } = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/user/get/me`, { withCredentials: true })
-            await updateAdmin(data.payload, true)
+            await updateAdmin(data.user, true)
         }
         catch (error) {
             console.log(error)
@@ -41,9 +40,9 @@ const useSession = create(persist((set, get) => ({
         try {
             const axiosData = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/auth/login`, credentials, { withCredentials: true })
             const { data } = axiosData;
-            if (data.redirect_url && !data.payload) router.push(data.redirect_url)
-            else if (data.payload) {
-                await updateAdmin(data.payload, true)
+            if (data.redirect_url && !data.user) router.push(data.redirect_url)
+            else if (data.user) {
+                await updateAdmin(data.user, true)
                 router.replace("/")
                 console.log("i reached here that means i redirected user to the home page")
                 toaster("success", data.msg)
@@ -56,12 +55,11 @@ const useSession = create(persist((set, get) => ({
         } finally { set(() => ({ adminLoading: false })); }
     },
 
-    updateAdmin: async (valuesObj, updateLocally = false,) => {
+    updateAdmin: async (admin, updateLocally = false) => {
         if (updateLocally) {
             try {
-                const userData = jwt.decode(valuesObj)
-                if (userData.role !== "administrator") return toaster("error", "401 Admin Unauthorized. Only administrator allowed.")
-                else set(() => ({ admin: userData }))
+                if (admin.role !== "administrator") return toaster("error", "401 Admin Unauthorized. Only administrator allowed.")
+                else set(() => ({ admin }))
             } catch (e) {
                 console.log(e)
                 toaster("error", "Error 403: Admin acces denied. Please try again.")
@@ -69,11 +67,10 @@ const useSession = create(persist((set, get) => ({
         }
         else {
             try {
-                const { data } = await axios.put(`${process.env.NEXT_PUBLIC_HOST}/api/user/update`, valuesObj, { withCredentials: true })
-                const userData = jwt.decode(data.payload)
-                if (userData.role !== "administrator") return toaster("error", "403 Forbidden. Only administrator allowed.")
+                const { data } = await axios.put(`${process.env.NEXT_PUBLIC_HOST}/api/user/update`, admin, { withCredentials: true })
+                if (admin.role !== "administrator") return toaster("error", "403 Forbidden. Only administrator allowed.")
                 else {
-                    set(() => ({ admin: userData }))
+                    set(() => ({ admin }))
                     toaster("success", data.msg)
                 }
             } catch (error) {
@@ -123,9 +120,8 @@ const useSession = create(persist((set, get) => ({
     matchOtpAndUpdate: async (values) => {
         try {
             const { data } = await axios.put(`${process.env.NEXT_PUBLIC_HOST}/api/user/auth-otp-and-change-email`, values, { withCredentials: true })
-            const userData = jwt.decode(data.payload)?._doc
-            delete userData.password
-            set(() => ({ admin: userData }))
+            delete data.user.password
+            set(() => ({ admin: data.user }))
             toaster("success", data.msg)
             window.location.href = '/auth/login'
         } catch (error) {
