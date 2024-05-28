@@ -1,5 +1,3 @@
-import React from "react";
-
 const AvatarIconV = ({w, h, fill, stroke}) => {
   return (
     <svg

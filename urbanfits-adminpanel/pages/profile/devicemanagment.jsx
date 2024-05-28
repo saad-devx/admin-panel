@@ -1,4 +1,3 @@
-import React from 'react'
 import Profile from '.'
 import CardAdmin from '@/components/cards/cardadmin'
 import DeviceIcon from '@/public/icons/DeviceIcon'

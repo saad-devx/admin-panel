@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { InputText } from '@/components/InputText'
 import useCategories from '@/hooks/useCategories'
 import Spinner from '../loaders/spinner'

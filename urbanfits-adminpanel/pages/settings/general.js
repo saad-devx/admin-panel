@@ -1,9 +1,5 @@
-import React from "react";
 import CardAdmin from "@/components/cards/cardadmin";
 import countryCodes from "@/mock/countryCodes";
-// import { InputText } from "@/components/InputText";
-// import { QuestionIcon } from "@/public/icons/QuestionIcon";
-import { InputSelect } from "@/components/InputSelect";
 import { RightArrowIcon } from "@/public/sidebaricons/RightArrowIcon";
 import { useFormik } from "formik";
 import { generalSettingSchema } from "@/mock/yupSchemas";

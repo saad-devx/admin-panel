@@ -1,4 +1,3 @@
-import React from "react";
 import ActionButton from "../buttons/ActionButton";
 import Image from "next/image";
 import smartWatch from "@/public/smartWatch.png";

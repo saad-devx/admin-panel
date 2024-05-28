@@ -1,4 +1,3 @@
-import React from "react";
 import Profile from ".";
 import CardAdmin from "@/components/cards/cardadmin";
 import { Button2 } from "@/components/buttons/Button2";

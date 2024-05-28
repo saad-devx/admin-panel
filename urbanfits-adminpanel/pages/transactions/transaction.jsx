@@ -1,9 +1,5 @@
-import React from 'react'
 import CardAdmin from "@/components/cards/cardadmin";
-import { RightArrowIcon } from "@/public/sidebaricons/RightArrowIcon";
 import Button from "@/components/buttons/simple_btn";
-import GenericTable1 from '@/components/GenericTables/GenericTable1';
-import { transactionTableColumns, transactionTableData } from '@/mock/tablesdata';
 import { RedirectIcon } from '@/public/icons/RedirectIcon';
 
 export default function Transaction() {

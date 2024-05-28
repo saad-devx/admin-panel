@@ -1,19 +1,19 @@
-import React, { useEffect, useState, useRef } from 'react'
-import Button from '@/components/buttons/simple_btn'
-import CardAdmin from '@/components/cards/cardadmin'
-import useCategories from '@/hooks/useCategories'
-import { InputText } from '@/components/InputText'
-import { InputSelect } from '@/components/InputSelect'
-import Loader from './loaders/loader'
-import DefaultOrPic from '@/components/default_or_pic'
-import Link from 'next/link'
-import Spinner from './loaders/spinner'
-import useProduct from '@/hooks/useProduct'
-import uploadImage from '@/utils/uploadImage'
-import slugify from 'slugify'
+import { useEffect, useState, useRef } from 'react';
+import Button from '@/components/buttons/simple_btn';
+import CardAdmin from '@/components/cards/cardadmin';
+import useCategories from '@/hooks/useCategories';
+import { InputText } from '@/components/InputText';
+import { InputSelect } from '@/components/InputSelect';
+import Loader from './loaders/loader';
+import DefaultOrPic from '@/components/default_or_pic';
+import Link from 'next/link';
+import Spinner from './loaders/spinner';
+import useProduct from '@/hooks/useProduct';
+import uploadImage from '@/utils/uploadImage';
+import slugify from 'slugify';
 import { useFormik } from 'formik';
-import { addProductSchema } from '@/mock/yupSchemas'
-import toaster from '@/utils/toast_function'
+import { addProductSchema } from '@/mock/yupSchemas';
+import toaster from '@/utils/toast_function';
 
 const VariantItem = (props) => {
     const { index, variant, values, errors, handleChange, handleBlur, setFieldValue, propsProduct } = props
@@ -78,7 +78,6 @@ const VariantItem = (props) => {
                                     <span className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black/60 w-full-h-full flex justify-center items-center text-center text-white text-xs transition-all">
                                         compressed size: <br />
                                         {(((imgUrl?.size / 1024) / 100) * variant.compression_quality).toFixed(1)} kb
-                                        {/* {((imgUrl?.size/1024)*((100-(100-variant.compression_quality))/100)).toFixed(1)} kb */}
                                     </span>
                                     <DefaultOrPic src={imgUrl} />
                                 </div>

@@ -1,4 +1,3 @@
-import React from 'react'
 import Button from '@/components/buttons/simple_btn'
 import CardAdmin from '@/components/cards/cardadmin'
 import { RightArrowIcon } from '@/public/sidebaricons/RightArrowIcon'

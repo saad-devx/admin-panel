@@ -1,5 +1,3 @@
-import React from "react";
-
 const InputText2 = (props) => {
   return (
     <input style={{marginTop:props.mt}}

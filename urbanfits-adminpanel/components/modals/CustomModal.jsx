@@ -1,5 +1,3 @@
-import React from 'react'
-
 const CustomModal = (props) => {
   return <div className={`w-full h-full font_futura fixed inset-0 z-40 bg-gray-800/40 backdrop-blur flex justify-center items-center transition-all duration-500   ${props.show === false ? "opacity-0 pointer-events-none" : ''}`}>
     <div className={` ${props.show === false ? "translate-y-10" : ''} relative ${props?.width}   ${props.p} ${props.py} ${props.px} text-sm flex flex-col lg:flex-row bg-white rounded-2xl md:rounded-2xl overflow-hidden transition-all duration-500`}>

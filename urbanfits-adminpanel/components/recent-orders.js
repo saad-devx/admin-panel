@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import CardAdmin from "@/components/cards/cardadmin";
 import DeleteAction from '@/components/modals/deleteAction';
 import Spinner from '@/components/loaders/spinner';

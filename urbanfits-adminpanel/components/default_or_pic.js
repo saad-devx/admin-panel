@@ -1,12 +1,11 @@
 import Image from 'next/image'
 
 export default function DefaultOrPic({ src, mega }) {
-    const getImgSrc = () => {
-        if (typeof src == "string" && src.includes("/product-images")) return `${process.env.NEXT_PUBLIC_BASE_IMG_URL}${src}`;
+    const imgSrc = (() => {
+        if (typeof src == "string" && (src.includes("/product-images") || src.includes("/carousel-images"))) return `${process.env.NEXT_PUBLIC_BASE_IMG_URL}${src}`;
         else if (typeof src === "object") return URL.createObjectURL(src);
         else return null
-    }
-    const imgSrc = getImgSrc();
+    })()
 
     if (imgSrc) return <Image src={imgSrc} className={mega ? "h-full object-contain" : "w-full h-full object-cover"} width={mega ? 640 : 1200} height={mega ? 1145 : 1265} alt='Product Image' />
     else return (

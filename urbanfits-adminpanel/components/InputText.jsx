@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const InputText = (props) => {
     return <div className={`${props.classes} relative flex flex-col`} >
         <label className='font_futura text-sm flex items-center' >

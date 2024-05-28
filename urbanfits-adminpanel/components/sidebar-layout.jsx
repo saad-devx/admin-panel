@@ -158,13 +158,7 @@ export default function SidebarLayout({ children }) {
         </div>
         <div className={`text-center text-xs mb-10 flex justify-center 
       ${sidebaropen ? "w-[120%]" : "w-[105%]"}`} >
-            <p>
-                Urban Fits L.L.C., Company Reg. Number - 2447 LLC 2023, Registered
-                Office Address - 500 4th St NW Suite 102 PMB 1958 Albuquerque, NM
-                87102
-                <br />
-                Urban Fits L.L.C. © 2023-2024 All rights reserved.
-            </p>
+            <p>Urban Fits L.L.C., Company Reg. Number - 2447 LLC 2023, Registered Office Address - 500 4th St NW Suite 102 PMB 1958 Albuquerque, NM 87102<br />Urban Fits L.L.C. © 2023-2024 All rights reserved.</p>
         </div>
     </div>
 }

@@ -1,4 +1,3 @@
-import React from "react";
 import Profile from ".";
 import CardAdmin from "@/components/cards/cardadmin";
 import { Button2 } from "@/components/buttons/Button2";
@@ -7,8 +6,6 @@ const notifications = () => {
   return (
     <Profile>
       <CardAdmin classes="p-[40px]">
-
-
         <div>
           <p className="text-[22px] font-[400] ">Notifications</p>
 
@@ -56,7 +53,7 @@ const notifications = () => {
               <span className="slider"></span>
             </label>
             <p className="text-[14px] font-[400]">
-            Monthly Newsletter
+              Monthly Newsletter
             </p>
           </div>
           <div
@@ -68,7 +65,7 @@ const notifications = () => {
               <span className="slider"></span>
             </label>
             <p className="text-[14px] font-[400]">
-            Daily Updates
+              Daily Updates
             </p>
           </div>
           <div
@@ -80,14 +77,14 @@ const notifications = () => {
               <span className="slider"></span>
             </label>
             <p className="text-[14px] font-[400]">
-            Minor Update and Bug Fix.
+              Minor Update and Bug Fix.
             </p>
           </div>
         </div>
-        <div style={{marginTop:"50px"}} >
-            <Button2 width="w-[160px]" my="my-[50px]">
-                Update
-            </Button2>
+        <div style={{ marginTop: "50px" }} >
+          <Button2 width="w-[160px]" my="my-[50px]">
+            Update
+          </Button2>
         </div>
       </CardAdmin>
     </Profile>

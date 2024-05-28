@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 export default function MenuButton(props) {
     const [menu, setMenu] = useState(false)
-    const toggleMenu = () => {
-        setMenu(!menu)
-    }
+    const toggleMenu = () => setMenu(!menu)
 
     return <div className='w-10 relative font_futura '>
         <button onClick={toggleMenu} className="w-6 fa-solid fa-ellipsis-vertical"></button>

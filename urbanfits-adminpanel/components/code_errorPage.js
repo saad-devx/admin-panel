@@ -1,4 +1,3 @@
-import React from 'react'
 import Head from 'next/head'
 import LinkBtn from '../components/buttons/link_btn';
 export default function HttpErrorPage(props) {

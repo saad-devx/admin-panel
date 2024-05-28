@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { InputText } from "./InputText";
 import Spinner from "./loaders/spinner";
 import Image from "next/image";

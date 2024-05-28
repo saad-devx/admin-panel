@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const InputSelect = (props) => {
   return (
     <div className={`${props.classes} flex flex-col`} >

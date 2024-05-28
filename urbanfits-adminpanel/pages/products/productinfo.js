@@ -1,4 +1,3 @@
-import React from 'react'
 import ProductInfoPage from '@/components/productinfopage'
 import useProduct from '@/hooks/useProduct'
 

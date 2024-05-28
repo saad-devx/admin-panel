@@ -1,5 +1,3 @@
-import React from "react";
-
 export const ClockIcon = ({w,h}) => {
   return (
     <svg

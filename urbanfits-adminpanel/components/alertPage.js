@@ -1,4 +1,3 @@
-import React from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import errorIcon from '@/public/error.svg'

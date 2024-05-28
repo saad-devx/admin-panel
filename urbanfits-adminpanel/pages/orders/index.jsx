@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SearchIcon } from '@/public/sidebaricons/SearchIcon';
 import Link from 'next/link';
 import { useRouter } from 'next/router';

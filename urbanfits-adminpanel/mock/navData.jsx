@@ -4,12 +4,27 @@ import { CategoriesIcon } from "@/public/sidebaricons/CategoriesIcon";
 import { CouponIcon } from "@/public/sidebaricons/CouponIcon";
 import { Dashboardicon } from "@/public/sidebaricons/Dashboardicon";
 import { ProductIcon } from "@/public/sidebaricons/ProductIcon";
+import { BannerIcon } from "@/public/sidebaricons/BannerIcon";
 
 export const sidebarItems = [
   {
     label: "Dashboard",
     icon: <Dashboardicon />,
-    navlink: "/",
+    navlink: "/"
+  },
+  {
+    label: "Carousels",
+    icon: <BannerIcon />,
+    subrows: [
+      {
+        label: "Home Carousel",
+        navlink: "/carousels/home",
+      },
+      {
+        label: "Catalogue Carousel",
+        navlink: "/carousels/catalogue"
+      }
+    ]
   },
   {
     label: "Products",

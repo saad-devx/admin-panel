@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { SortDownIcon } from "@/public/icons/SortDownIcon";
 import { SortUpIcon } from "@/public/icons/SortUpIcon";
 import Spinner from "../loaders/spinner";

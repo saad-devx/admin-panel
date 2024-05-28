@@ -65,8 +65,7 @@ export const inventeryManagementSchema = Yup.object({
     holdstock: Yup.string().min(2).required("Fill this field"),
     notificationrecipients: Yup.string().required("Fill this field"),
     lowstockthreshold: Yup.string().required("Fill this field"),
-    outofstockthreshold: Yup.string().required("Fill this field"),
-
+    outofstockthreshold: Yup.string().required("Fill this field")
 })
 
 export const couponSchema = Yup.object({
@@ -122,4 +121,14 @@ export const couponSchema = Yup.object({
         user_usage_limit: Yup.number()
     }),
     expiration_date: Yup.date(),
-});  
+});
+
+export const homeCarouselSchema = Yup.object({
+    slides: Yup.array().of(
+        Yup.object().shape({
+            title: Yup.string().required("Title is required."),
+            image: Yup.mixed().required("Image is required."),
+            href: Yup.string().url().required("A hyper link is required.")
+        })
+    )
+})
