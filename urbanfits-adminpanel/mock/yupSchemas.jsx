@@ -128,7 +128,18 @@ export const homeCarouselSchema = Yup.object({
         Yup.object().shape({
             title: Yup.string().required("Title is required."),
             image: Yup.mixed().required("Image is required."),
-            href: Yup.string().url().required("A hyper link is required.")
+            href: Yup.string().url()
+        })
+    )
+})
+
+export const catalogueCarouselSchema = Yup.object({
+    slides: Yup.array().of(
+        Yup.object().shape({
+            title: Yup.string().required("Title is required."),
+            image1: Yup.mixed().required("Image is required."),
+            image2: Yup.mixed().required("Image is required."),
+            href: Yup.string().url()
         })
     )
 })

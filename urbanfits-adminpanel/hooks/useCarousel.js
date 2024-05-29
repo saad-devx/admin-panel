@@ -23,12 +23,13 @@ const useCarousel = create((set, get) => ({
         return set(() => ({ carouselLoading: false }))
     },
 
-    updateHomeCarousel: async (callback) => {
+    updateHomeCarousel: async (slides, callback) => {
         if (!admin?._id) return console.log("no admin data")
 
         set(() => ({ carouselLoading: true }))
         try {
-            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/carousels/home/update`, { withCredentials: true })
+            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/carousels/home/update`, { slides }, { withCredentials: true });
+            toaster("success", data?.msg)
             callback(data.carousel);
         } catch (error) {
             console.log(error)
