@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
 import useCarousel from '@/hooks/useCarousel';
@@ -29,7 +29,6 @@ const DefaultOrPic = ({ src, index, setFieldValue }) => {
 }
 
 export default function ProductCategories() {
-    const [query, setQuery] = useState('');
     const [loader, setLoader] = useState(null);
     // const [carousel, setCarousel] = useState('');
     const { getHomeCarousel, updateHomeCarousel } = useCarousel();
@@ -54,7 +53,7 @@ export default function ProductCategories() {
                 console.log(slide)
             }
 
-            setLoader(<Loader status="All slides images uploaded, updating carousel now.." progress={100} />)
+            setLoader(<Loader status="All slides images uploaded, updating carousel now.." progress={99} />)
             await updateHomeCarousel(slides, (carousel) => {
                 console.log("Updated carousel: ", carousel)
                 resetForm();

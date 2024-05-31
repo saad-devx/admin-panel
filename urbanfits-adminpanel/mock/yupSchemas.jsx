@@ -137,8 +137,8 @@ export const catalogueCarouselSchema = Yup.object({
     slides: Yup.array().of(
         Yup.object().shape({
             title: Yup.string().required("Title is required."),
-            image1: Yup.mixed().required("Image is required."),
-            image2: Yup.mixed().required("Image is required."),
+            image1: Yup.mixed().required("Image1 is required."),
+            image2: Yup.mixed().required("Image2 is required."),
             href: Yup.string().url()
         })
     )

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
 import useCarousel from '@/hooks/useCarousel';
@@ -29,10 +29,8 @@ const DefaultOrPic = ({ src, index, setFieldValue, mega }) => {
 }
 
 export default function ProductCategories() {
-    const [query, setQuery] = useState('');
     const [loader, setLoader] = useState(null);
-    // const [carousel, setCarousel] = useState('');
-    const { getHomeCarousel, updateHomeCarousel } = useCarousel();
+    const { getCatalogueCarousel, updateCatalogueCarousel } = useCarousel();
 
     const { values, errors, handleBlur, handleChange, handleSubmit, handleReset, touched, setFieldValue, setValues } = useFormik({
         validationSchema: catalogueCarouselSchema,
@@ -47,20 +45,22 @@ export default function ProductCategories() {
             ]
         },
         onSubmit: async (values, { resetForm }) => {
-            // setLoader(<Loader status="Preparing the uploading for the slide images..." progress={8} />)
-            // const slides = structuredClone(values.slides);
-            // for (let [index, slide] of slides.entries()) {
-            //     setLoader(<Loader status={`Uploading Slide Image #${index}...`} progress={index / slides.length * 100} />)
-            //     slide.image = await uploadImage(slide.image, `carousel-images/home/${Date.now()}`, 100);
-            //     console.log(slide)
-            // }
+            setLoader(<Loader status="Preparing the uploading for the slide images..." progress={8} />)
+            const slides = structuredClone(values.slides);
+            console.log("So Here are the slides: :", slides)
+            for (let [index, slide] of slides.entries()) {
+                setLoader(<Loader status={`Uploading Slide Image #${index}...`} progress={index / slides.length * 100} />)
+                slide.image1 = await uploadImage(slide.image1, `carousel-images/catalogue/${Date.now()}`, 100);
+                slide.image2 = await uploadImage(slide.image2, `carousel-images/catalogue/${Date.now()}`, 100);
+                console.log(slide)
+            }
 
-            // setLoader(<Loader status="All slides images uploaded, updating carousel now.." progress={100} />)
-            // await updateHomeCarousel(slides, (carousel) => {
-            //     console.log("Updated carousel: ", carousel)
-            //     resetForm();
-            // })
-            // setLoader(null)
+            setLoader(<Loader status="All slides images uploaded, updating carousel now.." progress={99} />)
+            await updateCatalogueCarousel(slides, (carousel) => {
+                console.log("Updated carousel: ", carousel)
+                // resetForm();
+            })
+            setLoader(null)
         },
     })
 

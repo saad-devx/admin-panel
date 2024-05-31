@@ -2,14 +2,12 @@ import { create } from 'zustand'
 import toaster from "@/utils/toast_function";
 import axios from "axios";
 import useSession from "./useSession";
-const { admin } = useSession.getState();
 
 const useCarousel = create((set, get) => ({
-
-    categories: [],
     carouselLoading: false,
 
     getHomeCarousel: async (callback) => {
+        const { admin } = useSession.getState();
         if (!admin?._id) return console.log("no admin data")
 
         set(() => ({ carouselLoading: true }))
@@ -24,6 +22,7 @@ const useCarousel = create((set, get) => ({
     },
 
     updateHomeCarousel: async (slides, callback) => {
+        const { admin } = useSession.getState();
         if (!admin?._id) return console.log("no admin data")
 
         set(() => ({ carouselLoading: true }))
@@ -38,69 +37,33 @@ const useCarousel = create((set, get) => ({
         return set(() => ({ carouselLoading: false }))
     },
 
-    getOneCategory: async (category_id, callback) => {
-        if (!admin) return
-
-        set(() => ({ categLoading: true }))
+    getCatalogueCarousel: async (callback) => {
+        const { admin } = useSession.getState();
+        if (!admin?._id) return console.log("no admin data")
         try {
-            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/categories/get-one?category_id=${category_id}`, { withCredentials: true })
-            callback(data.category)
+            set(() => ({ carouselLoading: true }))
+            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/carousels/catalogue/get`, { withCredentials: true })
+            callback(data.carousel);
         } catch (error) {
             console.log(error)
-            toaster("error", error.response?.data?.msg)
-        }
-        return set(() => ({ categLoading: false }))
+            toaster("error", error.response.data.msg)
+        } finally { return set(() => ({ carouselLoading: false })) }
     },
 
-    createCategory: async (category) => {
-        if (!admin || admin.role === "customer") return
+    updateCatalogueCarousel: async (slides, callback) => {
+        const { admin } = useSession.getState();
+        if (!admin?._id) return console.log("no admin data")
 
-        set(() => ({
-            categLoading: true
-        }))
+        set(() => ({ carouselLoading: true }))
         try {
-            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/categories/create`, category, { withCredentials: true })
-            set(() => ({ categories: data.categories }))
-            toaster("success", data.msg)
+            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/carousels/catalogue/update`, { slides }, { withCredentials: true });
+            toaster("success", data?.msg)
+            callback(data.carousel);
         } catch (error) {
             console.log(error)
             toaster("error", error.response.data.msg)
         }
-        return set(() => ({
-            categLoading: false
-        }))
-    },
-
-    updateCategory: async (update) => {
-        if (!admin || admin.role === "customer") return
-
-        set(() => ({
-            categLoading: true
-        }))
-        try {
-            const { data } = await axios.put(`${process.env.NEXT_PUBLIC_HOST}/api/categories/update`, update, { withCredentials: true })
-            set(() => ({ categories: data.categories }))
-            toaster("success", data.msg)
-        } catch (error) {
-            console.log(error)
-            toaster("error", error.response.data.msg)
-        }
-        return set(() => ({ categLoading: false }))
-    },
-
-    deleteCategories: async (categoriesToDelete) => {
-        if (!admin || admin.role === "customer") return
-
-        set(() => ({ categLoading: true }))
-        try {
-            const { data } = await axios.put(`${process.env.NEXT_PUBLIC_HOST}/api/categories/delete`, { categories: categoriesToDelete }, { withCredentials: true })
-            set(() => ({ categories: data.categories }))
-            toaster(data.deletedCount < 1 ? "info" : "success", data.msg)
-        } catch (error) {
-            console.log(error)
-            toaster("error", error.response.data.msg)
-        }
-        return set(() => ({ categLoading: false }))
+        return set(() => ({ carouselLoading: false }))
     }
 }))
 
