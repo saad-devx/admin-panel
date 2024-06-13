@@ -14,10 +14,12 @@ import { ordersTableColumns } from '@/mock/tablesdata';
 
 export default function AllOrders() {
     const router = useRouter();
-    const { orders, getOrders, totalOrders, selectedOrders, setSelectedOrders, orderLoading, deleteOrders } = useOrder()
+    const { orders, getOrders, totalOrders, selectedOrders, setSelectedOrders, orderLoading, deleteOrders } = useOrder();
     const [deleteModal, setDeleteModal] = useState(null)
     const [query, setQuery] = useState('')
+    const [page, setPage] = useState(1)
     const [statusQuery, setStatusQuery] = useState(null)
+    const [perPageLimit, setPerPageLimit] = useState(null)
     const [actionsTip, setActionsTip] = useState(false)
     const [selectable, setSelectable] = useState(false)
     const filteredOrders = orders.filter((item) => {
@@ -122,7 +124,7 @@ export default function AllOrders() {
                         }}
                         classes={selectable ? "shadow-lg shadow-[#c3992c]" : null}
                     >Select Products</Button>
-                    <button title="Refresh Data" disabled={orderLoading} onClick={() => getOrders(1, statusQuery)} className={`fa-solid fa-arrows-rotate text-sm ${orderLoading ? "fa-spin" : null}`}></button>
+                    <button title="Refresh Data" disabled={orderLoading} onClick={() => getOrders(page, statusQuery, perPageLimit)} className={`fa-solid fa-arrows-rotate text-sm ${orderLoading ? "fa-spin" : null}`}></button>
                 </section>
             </div>
             <DataTable
@@ -143,10 +145,11 @@ export default function AllOrders() {
                 pagination
                 paginationServer
                 paginationDefaultPage={1}
-                onChangePage={(page) => getOrders(page)}
+                onChangePage={(page) => { getOrders(page, statusQuery, perPageLimit); setPage(page) }}
+                onChangeRowsPerPage={(perPage) => { getOrders(page, statusQuery, perPage); setPerPageLimit(perPage) }}
                 paginationTotalRows={totalOrders}
-                paginationPerPage={50}
-                paginationRowsPerPageOptions={[50]}
+                paginationPerPage={20}
+                paginationRowsPerPageOptions={[20, 30, 50, 100]}
                 selectableRows={selectable}
                 onSelectedRowsChange={(state) => setSelectedOrders(state.selectedRows)}
                 clearSelectedRows={selectable}
@@ -196,7 +199,7 @@ export default function AllOrders() {
                                         />
                                     )
                                 }
-                            },
+                            }
                         ]
                     }
                 })}

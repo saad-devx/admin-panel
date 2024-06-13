@@ -20,9 +20,10 @@ const useOrder = create((set, get) => ({
             const { data } = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/user/orders/get-many?page=${page}&limit=${limit}${statusQuery ? `&status=${statusQuery}` : ''}`, { withCredentials: true })
             set(() => ({
                 orders: data.orders,
-                totalOrders: data.totalorders,
+                totalOrders: data.totalOrders || data.orders?.length,
                 orderLoading: false
             }))
+            console.log(data)
             return data.orders
         } catch (error) {
             console.log(error)
